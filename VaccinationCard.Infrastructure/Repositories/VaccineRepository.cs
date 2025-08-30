@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Infrastructure.Context;
