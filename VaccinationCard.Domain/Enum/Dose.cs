@@ -2,7 +2,7 @@
 
 namespace VaccinationCard.Domain.Enum;
 
-public enum VaccineType
+public enum Dose
 {
     [Description("1° Dose")]
     firstDose = 1,
