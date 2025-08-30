@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
     <ProjectReference Include="..\VaccinationCard.Infrastructure\VaccinationCard.Infrastructure.csproj" />
   </ItemGroup>
