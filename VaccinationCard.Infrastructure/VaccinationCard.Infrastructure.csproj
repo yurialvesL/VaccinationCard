@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Context\" />
     <Folder Include="Middlewares\" />
     <Folder Include="Migrations\" />
     <Folder Include="Repositories\" />
@@ -26,6 +25,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
   </ItemGroup>
 
 </Project>
