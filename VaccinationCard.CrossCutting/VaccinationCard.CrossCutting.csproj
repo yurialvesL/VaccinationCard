@@ -11,4 +11,9 @@
     <Folder Include="IoC\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
+    <ProjectReference Include="..\VaccinationCard.Infrastructure\VaccinationCard.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
