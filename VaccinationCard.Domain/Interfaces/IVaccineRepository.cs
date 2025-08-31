@@ -49,4 +49,12 @@ public interface IVaccineRepository
     /// <param name="cancellationToken">Cancellation token</param>  
     /// <returns>The updated vaccine if successful, null if the vaccine does not exist</returns>
     Task<Vaccine?> UpdateVaccineAsync(Vaccine vaccine, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get Vaccine by name.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>return vaccine if successful, null if the vaccine does not exist</returns>
+    Task<Vaccine?> GetVaccineByNameAsync(string name, CancellationToken cancellationToken = default);
 }

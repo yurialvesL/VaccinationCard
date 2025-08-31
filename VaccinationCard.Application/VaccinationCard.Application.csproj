@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\Vaccinations\" />
-    <Folder Include="Commands\Vaccines\" />
-    <Folder Include="Mappings\Vaccine\" />
     <Folder Include="Mappings\Vaccination\" />
     <Folder Include="Strategies\" />
     <Folder Include="Services\" />

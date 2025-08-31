@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Features\Vaccinations\" />
-    <Folder Include="Controllers\Features\Vaccines\" />
   </ItemGroup>
 
 </Project>

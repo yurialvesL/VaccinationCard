@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Infrastructure.Context;
@@ -73,6 +74,21 @@ public class VaccineRepository(ApplicationDbContext dbContext): IVaccineReposito
             .FirstOrDefaultAsync(o => o.Id == vaccineId, cancellationToken);
 
         return vaccine; 
+    }
+
+    /// <summary>
+    /// Retrieves a vaccine by its name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Retrieves vaccine if found or null if not found</returns>
+    public Task<Vaccine?> GetVaccineByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+         var vaccine = _dbContext.Vaccines
+            .AsNoTracking()
+            .FirstOrDefaultAsync(o => EF.Functions.Like(o.Name, name), cancellationToken);
+
+        return vaccine;
     }
 
     /// <summary>
