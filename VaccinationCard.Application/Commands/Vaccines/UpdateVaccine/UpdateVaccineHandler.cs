@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using VaccinationCard.Application.Commands.Person.UpdatePerson;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Interfaces;
 
