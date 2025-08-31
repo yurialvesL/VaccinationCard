@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationCard.Application.Commands.Vaccines.CreateVaccine;
+using VaccinationCard.Application.Commands.Vaccines.GetAllVaccine;
+using VaccinationCard.Application.Commands.Vaccines.UpdateVaccine;
 using VaccinationCard.Controllers.Features.Vaccines.DTOs.CreateVaccine;
+using VaccinationCard.Controllers.Features.Vaccines.DTOs.UpdateVaccine;
 using VaccinationCard.Controllers.Features.Vaccines.Validator;
 
 namespace VaccinationCard.Controllers.Features.Vaccines;
@@ -21,7 +24,7 @@ public class VaccinesController : ControllerBase
     public VaccinesController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator;
-        _mapper = mapper;   
+        _mapper = mapper;
     }
 
     [HttpPost("CreateVaccine")]
@@ -46,6 +49,50 @@ public class VaccinesController : ControllerBase
 
         var response = _mapper.Map<CreateVaccineResponse>(result);
 
-        return Created(string.Empty,response);
+        return Created(string.Empty, response);
+    }
+
+    [HttpGet("GetAllVaccine")]
+    [Authorize]
+    [SwaggerOperation(Summary = "Gets all vaccines", Description = "Gets all vaccines in the system")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> GetAllVaccine(CancellationToken cancellationToken)
+    {
+        var command = new GetAllVaccineCommand();
+
+        var result = await _mediator.Send(command, cancellationToken);
+
+        if (result is null)
+            return NotFound("No vaccines found");
+
+        return Ok(result);
+    }
+
+    [HttpPut("UpdateVaccine")]
+    [Authorize]
+    [SwaggerOperation(Summary = "Update Vaccine", Description = "Update a vaccine in the system")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> UpdateVaccine([FromBody] UpdateVaccineRequest request, CancellationToken cancellationToken)
+    {
+        var validator = new UpdateVaccineValidator();
+
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<UpdateVaccineCommand>(request);
+
+        var result = await _mediator.Send(command, cancellationToken);
+
+        if (result is null)
+            return NotFound("Vaccine not found");
+
+        return NoContent();
     }
 }
