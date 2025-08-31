@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationCard.Application.Commands.Vaccines.CreateVaccine;
+using VaccinationCard.Application.Commands.Vaccines.DeleteVaccine;
 using VaccinationCard.Application.Commands.Vaccines.GetAllVaccine;
 using VaccinationCard.Application.Commands.Vaccines.UpdateVaccine;
 using VaccinationCard.Controllers.Features.Vaccines.DTOs.CreateVaccine;
+using VaccinationCard.Controllers.Features.Vaccines.DTOs.DeleteVaccine;
 using VaccinationCard.Controllers.Features.Vaccines.DTOs.UpdateVaccine;
 using VaccinationCard.Controllers.Features.Vaccines.Validator;
 
@@ -92,6 +94,37 @@ public class VaccinesController : ControllerBase
 
         if (result is null)
             return NotFound("Vaccine not found");
+
+        return NoContent();
+    }
+
+    [HttpDelete("DeleteVaccine")]
+    [Authorize]
+    [SwaggerOperation(Summary = "Deletes a vaccine", Description = "Deletes a vaccine from the system by its unique identifier")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> DeleteVaccine([FromQuery] Guid id, CancellationToken cancellationToken)
+    {
+        var request = new DeleteVaccineRequest { VaccineId = id };
+
+        var validator = new DeleteVaccineValidator();
+
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<DeleteVaccineCommand>(request);
+
+        var result = await _mediator.Send(command, cancellationToken);
+
+        if (result.IsDeleted is null)
+            return NotFound("Vaccine not found");
+
+        if(result.IsDeleted is false)
+            return BadRequest("An error occurred while deleting the vaccine");  
 
         return NoContent();
     }

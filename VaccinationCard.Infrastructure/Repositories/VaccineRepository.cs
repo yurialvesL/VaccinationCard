@@ -43,7 +43,7 @@ public class VaccineRepository(ApplicationDbContext dbContext): IVaccineReposito
            .Where(i => i.Id == vaccineId)
            .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
-        return deleted > 1;
+        return deleted > 0;
     }
 
     /// <summary>
