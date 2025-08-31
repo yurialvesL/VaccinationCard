@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using VaccinationCard.Domain.Enum;
 
 namespace VaccinationCard.Application.Commands.Person.CreatePerson;
 
@@ -16,6 +17,11 @@ public class CreatePersonCommand : IRequest<CreatePersonResult>
     /// Gets or sets the name associated with the Person.
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the sex of the person.
+    /// </summary>
+    public string Sex { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the password for the person.

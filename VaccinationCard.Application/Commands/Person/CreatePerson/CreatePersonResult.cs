@@ -1,4 +1,6 @@
-﻿namespace VaccinationCard.Application.Commands.Person.CreatePerson;
+﻿using VaccinationCard.Domain.Enum;
+
+namespace VaccinationCard.Application.Commands.Person.CreatePerson;
 
 /// <summary>
 /// Create Person Command Result
@@ -34,4 +36,20 @@ public class CreatePersonResult
     /// Person is admin or not
     /// </summary>
     public bool IsAdmin { get; set; }
+
+    /// <summary>
+    /// Sex of the person
+    /// </summary>
+    public Sex Sex { get; set; }
+
+    /// <summary>
+    /// Create date record
+    /// </summary>
+    public DateTime CreatedAt { get; set; }
+
+    /// <summary>
+    /// update date record
+    /// </summary>
+    public DateTime UpdatedAt { get; set; }
 }
+

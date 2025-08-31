@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using VaccinationCard.Controllers.Features.Auth.DTOs;
-using VaccinationCard.CrossCutting.Common.Validation;
+using VaccinationCard.CrossCutting.Common.Extensions;
 
 namespace VaccinationCard.Controllers.Features.Auth.Validator;
 

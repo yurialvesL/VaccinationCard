@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using VaccinationCard.Infrastructure.Context;
 
+/// <summary>
+/// Design-time factory for creating ApplicationDbContext instances.
+/// </summary>
 public class DesignTimeDbContextFactory
     : IDesignTimeDbContextFactory<ApplicationDbContext>
 {

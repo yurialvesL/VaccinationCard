@@ -7,21 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Person\GetPersonByCPF\" />
-    <Folder Include="Commands\Person\DeletePerson\" />
-    <Folder Include="Commands\Person\UpdatePerson\" />
     <Folder Include="Commands\Vaccinations\" />
     <Folder Include="Commands\Vaccines\" />
+    <Folder Include="Mappings\Vaccine\" />
+    <Folder Include="Mappings\Vaccination\" />
     <Folder Include="Strategies\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VaccinationCard.CrossCutting\VaccinationCard.CrossCutting.csproj" />
+    <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
     <ProjectReference Include="..\VaccinationCard.Infrastructure\VaccinationCard.Infrastructure.csproj" />
   </ItemGroup>
 

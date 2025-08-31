@@ -1,5 +1,8 @@
 ﻿namespace VaccinationCard.CrossCutting.Common.Options;
 
+/// <summary>
+/// JWT options for token generation and validation.
+/// </summary>
 public class JwtOptions
 {
     public string SecretKey { get; set; } = default!;

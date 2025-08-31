@@ -34,7 +34,8 @@ public class PersonRepository(ApplicationDbContext dbContext) : IPersonRepositor
     /// <returns>The person if found, null otherwise</returns>
     public async Task<Person?> GetPersonByIdAsync(Guid personId, CancellationToken cancellationToken)
     {
-        return await _dbContext.Persons.FirstOrDefaultAsync(o => o.Id == personId, cancellationToken);
+        return await _dbContext.Persons.AsNoTracking().
+                                    FirstOrDefaultAsync(o => o.Id == personId, cancellationToken);
     }
 
     /// <summary>
@@ -44,7 +45,7 @@ public class PersonRepository(ApplicationDbContext dbContext) : IPersonRepositor
     /// <returns>The person if found, null otherwise</returns>
     public async Task<List<Person>> GetAllPersonAsync(CancellationToken cancellationToken)
     {
-        return await _dbContext.Persons.ToListAsync(cancellationToken: cancellationToken);
+        return await _dbContext.Persons.AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
     }
 
     /// <summary>

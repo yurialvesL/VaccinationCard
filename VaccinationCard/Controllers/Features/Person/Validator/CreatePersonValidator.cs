@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using VaccinationCard.Controllers.Features.Person.DTOs.CreatePerson;
-using VaccinationCard.CrossCutting.Common.Validation;
+using VaccinationCard.CrossCutting.Common.Extensions;
 
 namespace VaccinationCard.Controllers.Features.Person.Validator;
 
@@ -18,7 +18,7 @@ public class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
             .Cpf();
         RuleFor(x => x.DateOfBirth)
             .NotEmpty().WithMessage("Date of birth is required.")
-            .LessThan(DateTime.Now).WithMessage("Date of birth must be in the past.");
+            .LessThan(DateTime.UtcNow.AddMinutes(-5)).WithMessage("Date of birth must be in the past.");
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Password is required.")
             .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")

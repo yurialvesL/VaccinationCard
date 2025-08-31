@@ -32,7 +32,7 @@ public class AuthPersonHandler : IRequestHandler<AuthPersonCommand,AuthPersonRes
     {
         var person = await _personRepository.GetPersonByCPFAsync(request.CPF, cancellationToken);
 
-        if (person == null || !_passwordHasher.VerifyPassword(request.Password, person.PasswordHash))
+        if (person == null || !_passwordHasher.VerifyPassword(person.PasswordHash,request.Password))
             throw new UnauthorizedAccessException("Invalid CPF or password.");
 
         var nowUtc = DateTime.UtcNow;

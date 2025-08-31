@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace VaccinationCard.CrossCutting.Common.Validation;
+namespace VaccinationCard.CrossCutting.Common.Extensions;
 
 /// <summary>
 /// Provides extension methods for validating CPF (Cadastro de Pessoas Físicas) numbers using FluentValidation rules.
@@ -35,7 +35,7 @@ public static class CpfValidationExtensions
 
         int remainder = sum % 11;
         int dv1 = remainder < 2 ? 0 : 11 - remainder;
-        if (dv1 != (digits[9] - '0')) return false;
+        if (dv1 != digits[9] - '0') return false;
 
         // Calcule DV2
         sum = 0;
@@ -44,7 +44,7 @@ public static class CpfValidationExtensions
 
         remainder = sum % 11;
         int dv2 = remainder < 2 ? 0 : 11 - remainder;
-        if (dv2 != (digits[10] - '0')) return false;
+        if (dv2 != digits[10] - '0') return false;
 
         return true;
     }

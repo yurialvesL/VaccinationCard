@@ -8,7 +8,7 @@ using VaccinationCard.CrossCutting.Common.Exceptions;
 namespace VaccinationCard.CrossCutting.Common.Middlewares;
 
 /// <summary>
-/// Global Excep
+/// Middleware to handle global exceptions and return appropriate HTTP responses
 /// </summary>
 public sealed class GlobalExceptionMiddleware
 {

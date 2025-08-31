@@ -1,4 +1,5 @@
-﻿using VaccinationCard.Domain.Interfaces;
+﻿using VaccinationCard.Domain.Enum;
+using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Domain.Entities;
 
@@ -21,6 +22,11 @@ public class Person : BaseEntitie, IPerson
     /// Gets or sets the CPF (Cadastro de Pessoas Físicas), a unique identifier for individuals in Brazil.
     /// </summary>
     public string CPF { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the sex of the person.
+    /// </summary>
+    public Sex Sex { get; set; }
 
     /// <summary>
     /// Gets or sets the hashed representation of the user's password.
