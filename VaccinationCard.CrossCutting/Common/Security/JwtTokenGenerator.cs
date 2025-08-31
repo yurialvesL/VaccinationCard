@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using VaccinationCard.CrossCutting.Common.Interfaces;
+using VaccinationCard.CrossCutting.Common.Options;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.CrossCutting.Common.Security;
@@ -16,11 +16,16 @@ namespace VaccinationCard.CrossCutting.Common.Security;
 /// from the application's configuration.</remarks>
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
-    private readonly IConfiguration _configuration;
+    private readonly JwtOptions _opts;
+    private readonly SigningCredentials _creds;
 
-    public JwtTokenGenerator(IConfiguration configuration)
+    public JwtTokenGenerator(IOptions<JwtOptions> options)
     {
-        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _opts = options.Value;
+
+        var keyBytes = Convert.FromBase64String(_opts.SecretKey);
+        var key = new SymmetricSecurityKey(keyBytes);
+        _creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     }
 
     /// <summary>
@@ -34,8 +39,9 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     /// <returns>A string representation of the generated JWT.</returns>
     public string GenerateToken(IPerson person)
     {
+        var now = DateTime.UtcNow;
+
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
 
         var claims = new[]
         {
@@ -45,16 +51,16 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
         };
 
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(8),
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
-        };
+        var token = new JwtSecurityToken(
+            issuer: _opts.Issuer,
+            audience: _opts.Audience,
+            claims: claims,
+            notBefore: now,
+            expires: now.AddMinutes(_opts.ExpirationInMinutes),
+            signingCredentials: _creds
+        );
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
+
         return tokenHandler.WriteToken(token);
     }
 }

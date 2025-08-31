@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>125b44b9-7930-479e-bb9e-d9d161c95b04</UserSecretsId>
+	<NoWarn>1591</NoWarn>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -21,12 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\VaccinationCard.Application\VaccinationCard.Application.csproj" />
+    <ProjectReference Include="..\VaccinationCard.CrossCutting\VaccinationCard.CrossCutting.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VaccinationCard.Application\VaccinationCard.Application.csproj" />
-    <ProjectReference Include="..\VaccinationCard.CrossCutting\VaccinationCard.CrossCutting.csproj" />
+    <Folder Include="Controllers\Features\Vaccinations\" />
+    <Folder Include="Controllers\Features\Vaccines\" />
   </ItemGroup>
 
 </Project>

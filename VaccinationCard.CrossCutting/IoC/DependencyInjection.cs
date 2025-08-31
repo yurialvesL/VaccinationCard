@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Infrastructure.Context;
+using VaccinationCard.Infrastructure.Repositories;
 
 namespace VaccinationCard.CrossCutting.IoC;
 
@@ -16,6 +18,11 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(connectionString));
+
+        //Repositories
+        services.AddScoped<IPersonRepository, PersonRepository>();
+        services.AddScoped<IVaccineRepository, VaccineRepository>();
+        services.AddScoped<IVaccinationRepository, VaccinationRepository>();
 
         return services;
     }

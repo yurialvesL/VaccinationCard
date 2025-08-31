@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Folder Include="Commands\Person\GetPersonByCPF\" />
+    <Folder Include="Commands\Person\DeletePerson\" />
+    <Folder Include="Commands\Person\UpdatePerson\" />
+    <Folder Include="Commands\Vaccinations\" />
+    <Folder Include="Commands\Vaccines\" />
     <Folder Include="Strategies\" />
     <Folder Include="Services\" />
   </ItemGroup>

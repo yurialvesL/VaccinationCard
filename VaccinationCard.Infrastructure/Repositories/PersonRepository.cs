@@ -77,4 +77,18 @@ public class PersonRepository(ApplicationDbContext dbContext) : IPersonRepositor
             .FirstOrDefaultAsync(i => i.Id == person.Id, cancellationToken: cancellationToken);
     }
 
+    /// <summary>
+    /// Get person by CPF
+    /// </summary>
+    /// <param name="cpf">cpf person</param>
+    /// <param name="cancellationToken">CancellationToken</param>
+    /// <returns></returns>
+    public Task<Person?> GetPersonByCPFAsync(string cpf, CancellationToken cancellationToken)
+    {
+        var person = _dbContext.Persons
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.CPF == cpf, cancellationToken: cancellationToken);
+
+        return person;
+    }
 }

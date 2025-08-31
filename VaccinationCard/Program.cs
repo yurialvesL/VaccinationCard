@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Diagnostics;
 using VaccinationCard.Application;
+using VaccinationCard.CrossCutting.Common.Middlewares;
 using VaccinationCard.CrossCutting.Common.Security;
 using VaccinationCard.CrossCutting.IoC;
+using VaccinationCard.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,9 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 
 
 var app = builder.Build();
+
+
+app.UseGlobalExceptionHandler();
 
 
 app.UseSwaggerUI(c =>

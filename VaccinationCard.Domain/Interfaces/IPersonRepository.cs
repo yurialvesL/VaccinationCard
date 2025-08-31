@@ -25,6 +25,14 @@ public interface IPersonRepository
     Task<Person?> GetPersonByIdAsync(Guid personId, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Retrieves a person by their CPF
+    /// </summary>
+    /// <param name="cpf">person cpf</param>
+    /// <param name="cancellationToken">cancellation token</param>
+    /// <returns></returns>
+    Task<Person?> GetPersonByCPFAsync(string cpf, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Retrieves a paginated list of persons from the repository
     /// </summary>
     /// <param name="cancellationToken">Cancellation token</param>
