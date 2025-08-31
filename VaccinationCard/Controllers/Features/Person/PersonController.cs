@@ -85,33 +85,6 @@ public class PersonController : ControllerBase
     }
 
 
-    [HttpDelete("DeletePersonById")]
-    [Authorize]
-    [SwaggerOperation(Summary = "Deletes a person by ID", Description = "Deletes a person from the system using their unique identifier")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
-    public async Task<IActionResult> DeletePersonById([FromQuery] Guid id, CancellationToken cancellationToken)
-    {
-        var request = new DeletePersonByIdRequest { PersonId = id };
-
-        var validator = new Validator.DeletePersonValidator();
-        
-       var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-        if (!validationResult.IsValid)
-            return BadRequest(validationResult.Errors);
-
-        var command = _mapper.Map<DeletePersonCommand>(request);
-
-        var result = await _mediator.Send(command, cancellationToken);
-
-        if (!result.IsDelete)
-            return BadRequest("An error occured, try again later");
-
-        return NoContent();
-    }
-
     [HttpPut("UpdatePerson")]
     [Authorize]
     [SwaggerOperation(Summary = "Update a person to admin", Description ="Update a person to admin")]
@@ -132,6 +105,40 @@ public class PersonController : ControllerBase
         var result = await _mediator.Send(command, cancellationToken);
 
         if(!result.UpdateSuccess)
+            return BadRequest("An error occured, try again later");
+
+        return NoContent();
+    }
+
+
+    [HttpDelete("DeletePersonById")]
+    [Authorize]
+    [SwaggerOperation(Summary = "Deletes a person by ID", Description = "Deletes a person from the system using their unique identifier")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> DeletePersonById([FromQuery] Guid id, CancellationToken cancellationToken)
+    {
+        var request = new DeletePersonByIdRequest { PersonId = id };
+
+        var validator = new Validator.DeletePersonValidator();
+
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<DeletePersonCommand>(request);
+
+        var result = await _mediator.Send(command, cancellationToken);
+
+        var response = _mapper.Map<DeletePersonByIdResponse>(result);
+
+        if(response.IsDeleted is null)
+            return NotFound("Person not found");
+
+        if (response.IsDeleted is false)
             return BadRequest("An error occured, try again later");
 
         return NoContent();

@@ -60,7 +60,7 @@ public class PersonRepository(ApplicationDbContext dbContext) : IPersonRepositor
            .Where(i => i.Id == personId)
            .ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
-        return deleted > 1;
+        return deleted > 0;
     }
 
     /// <summary>

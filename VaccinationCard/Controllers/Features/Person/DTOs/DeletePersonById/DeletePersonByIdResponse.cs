@@ -2,5 +2,5 @@
 
 public record DeletePersonByIdResponse
 {
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 }

@@ -27,7 +27,7 @@ public class DeletePersonHandler : IRequestHandler<DeletePersonCommand,DeletePer
 
             return new DeletePersonResult
             {
-                IsDelete = false
+                IsDelete = null
             };
         }
 
