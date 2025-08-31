@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.Application.Common.DTOs;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Vaccines.GetAllVaccine;
@@ -20,6 +21,7 @@ public class GetAllVaccineHandler : IRequestHandler<GetAllVaccineCommand, GetAll
 
     public async Task<GetAllVaccineResult> Handle(GetAllVaccineCommand request, CancellationToken cancellationToken)
     {
+        var vaccinesResult = new List<VaccineSummaryDto>();
         try
         {
             var vaccines = await _vaccineRepository.GetAllVaccinesAsync(cancellationToken);
@@ -30,7 +32,7 @@ public class GetAllVaccineHandler : IRequestHandler<GetAllVaccineCommand, GetAll
                 return new GetAllVaccineResult { Vaccines = null };
             }
 
-            return _mapper.Map<GetAllVaccineResult>(vaccines);
+            vaccinesResult = _mapper.Map<List<VaccineSummaryDto>>(vaccines);
         }
         catch (Exception ex)
         {
@@ -38,6 +40,6 @@ public class GetAllVaccineHandler : IRequestHandler<GetAllVaccineCommand, GetAll
             _logger.LogError($"An error occurred while retrieving vaccines, message:{ex.Message}");
         }
 
-        return new GetAllVaccineResult { Vaccines = null };
+        return new GetAllVaccineResult { Vaccines = vaccinesResult };
     }
 }

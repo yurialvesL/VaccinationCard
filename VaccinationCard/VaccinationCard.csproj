@@ -26,8 +26,4 @@
     <ProjectReference Include="..\VaccinationCard.CrossCutting\VaccinationCard.CrossCutting.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Features\Vaccinations\" />
-  </ItemGroup>
-
 </Project>

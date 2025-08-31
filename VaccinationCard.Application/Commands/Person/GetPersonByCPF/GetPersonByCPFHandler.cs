@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.Application.Common.DTOs;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Person.GetPersonByCPF;
@@ -30,6 +31,8 @@ public class GetPersonByCPFHandler : IRequestHandler<GetPersonByCPFCommand,GetPe
             return new GetPersonByCPFResult() { Person = null };
         }
 
-        return _mapper.Map<GetPersonByCPFResult>(person);
+        var personResult = _mapper.Map<PersonSummaryDto>(person);
+
+        return _mapper.Map<GetPersonByCPFResult>(personResult);
     }
 }

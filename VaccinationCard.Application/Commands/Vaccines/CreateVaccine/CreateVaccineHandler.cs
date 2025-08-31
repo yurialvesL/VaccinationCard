@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using VaccinationCard.Application.Commands.Person.CreatePerson;
+using VaccinationCard.Application.Common.DTOs;
 using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Interfaces;
@@ -32,6 +33,11 @@ public class CreateVaccineHandler : IRequestHandler<CreateVaccineCommand,CreateV
 
         var vaccineCreated = await _vaccineRepository.CreateVaccineAsync(vaccine, cancellationToken);
 
-        return _mapper.Map<CreateVaccineResult>(vaccineCreated);
+        if(vaccineCreated is not null)
+               _logger.LogInformation($"Vaccine {vaccineCreated.Id} created successfully");
+
+        var vaccineResult = _mapper.Map<VaccineSummaryDto>(vaccineCreated);
+
+        return _mapper.Map<CreateVaccineResult>(vaccineResult);
     }
 }

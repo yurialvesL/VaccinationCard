@@ -1,4 +1,5 @@
-﻿using VaccinationCard.Domain.Entities;
+﻿using VaccinationCard.Application.Common.DTOs;
+using VaccinationCard.Domain.Entities;
 
 namespace VaccinationCard.Application.Commands.Vaccines.GetAllVaccine;
 
@@ -7,5 +8,5 @@ namespace VaccinationCard.Application.Commands.Vaccines.GetAllVaccine;
 /// </summary>
 public class GetAllVaccineResult
 {
-    public List<Vaccine>? Vaccines { get; set; }
+    public List<VaccineSummaryDto>? Vaccines { get; set; }
 }

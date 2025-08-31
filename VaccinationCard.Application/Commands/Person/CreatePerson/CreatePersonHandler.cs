@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.Application.Common.DTOs;
 using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.CrossCutting.Common.Interfaces;
 using VaccinationCard.Domain.Interfaces;
@@ -48,6 +49,9 @@ public class CreatePersonHandler : IRequestHandler<CreatePersonCommand, CreatePe
             _logger.LogError($"An error occured in {nameof(CreatePersonHandler)}, Exception: {ex.Message}");
         }
 
-        return _mapper.Map<CreatePersonResult>(personEntity);
+        var personResult = _mapper.Map<PersonSummaryDto>(personEntity);
+
+
+        return _mapper.Map<CreatePersonResult>(personResult);
     }
 }

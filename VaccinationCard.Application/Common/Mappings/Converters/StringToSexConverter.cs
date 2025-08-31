@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VaccinationCard.Domain.Enum;
 
-namespace VaccinationCard.Application.Mappings.Converters;
+namespace VaccinationCard.Application.Common.Mappings.Converters;
 
 public sealed class StringToSexConverter : IValueConverter<string?, Sex>
 {

@@ -1,4 +1,4 @@
-﻿using VaccinationCard.Domain.Entities;
+﻿using VaccinationCard.Application.Common.DTOs;
 
 namespace VaccinationCard.Controllers.Features.Vaccines.DTOs.GetAllVacines;
 
@@ -10,5 +10,5 @@ public record GetAllVacinesResponse
     /// <summary>
     /// List of all vaccines
     /// </summary>
-    public List<Vaccine>? Vaccines { get; set; }
+    public List<VaccineSummaryDto>? Vaccines { get; set; }
 }
