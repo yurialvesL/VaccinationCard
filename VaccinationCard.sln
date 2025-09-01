@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{7B0F797F-FE50-42CB-80BF-9EC1B5355318}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCardHandlerTests", "CreateVaccinationHandlerTests\VaccinationCardHandlerTests.csproj", "{76A5AC23-2144-4ACF-AAFD-9A8DDF4B917A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,12 +45,17 @@ Global
 		{87036D9E-2DBA-4EF5-BF84-394BBBEAF083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87036D9E-2DBA-4EF5-BF84-394BBBEAF083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87036D9E-2DBA-4EF5-BF84-394BBBEAF083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A5AC23-2144-4ACF-AAFD-9A8DDF4B917A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A5AC23-2144-4ACF-AAFD-9A8DDF4B917A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A5AC23-2144-4ACF-AAFD-9A8DDF4B917A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A5AC23-2144-4ACF-AAFD-9A8DDF4B917A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7B0F797F-FE50-42CB-80BF-9EC1B5355318} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{76A5AC23-2144-4ACF-AAFD-9A8DDF4B917A} = {7B0F797F-FE50-42CB-80BF-9EC1B5355318}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {002389BB-DCF0-4D13-A899-1BB1DDED2BCC}
