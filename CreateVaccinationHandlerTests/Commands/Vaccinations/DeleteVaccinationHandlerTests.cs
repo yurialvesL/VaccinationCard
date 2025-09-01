@@ -1,8 +1,6 @@
-﻿using Castle.Core.Logging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using VaccinationCard.Application.Commands.Vaccinations.CreateVaccination;
 using VaccinationCard.Application.Commands.Vaccinations.DeleteVaccinationById;
 using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Entities;
@@ -112,5 +110,16 @@ public static class LoggerMoqExtensions
             It.IsAny<Exception?>(),
             It.Is<Func<It.IsAnyType, Exception?, string>>((_, _) => true)
         ), times.Value);
+    }
+
+    public static void VerifyNoLog<T>(this Mock<ILogger<T>> logger, LogLevel level)
+    {
+        logger.Verify(x => x.Log(
+            It.Is<LogLevel>(l => l == level),
+            It.IsAny<EventId>(),
+            It.IsAny<It.IsAnyType>(),
+            It.IsAny<Exception?>(),
+            It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+        ), Times.Never);
     }
 }

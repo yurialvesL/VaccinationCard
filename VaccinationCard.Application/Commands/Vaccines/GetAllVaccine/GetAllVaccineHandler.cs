@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using VaccinationCard.Application.Common.DTOs;
+using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Vaccines.GetAllVaccine;
@@ -27,10 +28,7 @@ public class GetAllVaccineHandler : IRequestHandler<GetAllVaccineCommand, GetAll
             var vaccines = await _vaccineRepository.GetAllVaccinesAsync(cancellationToken);
 
             if (vaccines is null)
-            {
-                _logger.LogWarning("No vaccines found in the repository.");
-                return new GetAllVaccineResult { Vaccines = null };
-            }
+                throw new NotFoundException("No vaccines found in the repository.");
 
             vaccinesResult = _mapper.Map<List<VaccineSummaryDto>>(vaccines);
         }
