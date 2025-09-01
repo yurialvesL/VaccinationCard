@@ -16,14 +16,11 @@ public class VaccineProfile : Profile
 
         CreateMap<VaccineSummaryDto, Domain.Entities.Vaccine>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.VaccineId))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name)).ReverseMap();
 
         CreateMap<VaccineSummaryDto, CreateVaccineResult>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.VaccineId));
-
-        CreateMap<List<Domain.Entities.Vaccine>,List<VaccineSummaryDto>>()
-            .ForMember(dest => dest, opt => opt.MapFrom(src => src));
 
         CreateMap<List<VaccineSummaryDto>,GetAllVaccineResult>()
             .ForMember(dest => dest.Vaccines, opt => opt.MapFrom(src => src));

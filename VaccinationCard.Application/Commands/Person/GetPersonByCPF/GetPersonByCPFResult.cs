@@ -1,5 +1,6 @@
 ﻿using VaccinationCard.Domain.Enum;
 using VaccinationCard.Domain.Entities;
+using VaccinationCard.Application.Common.DTOs;
 
 namespace VaccinationCard.Application.Commands.Person.GetPersonByCPF;
 
@@ -8,5 +9,8 @@ namespace VaccinationCard.Application.Commands.Person.GetPersonByCPF;
 /// </summary>
 public class GetPersonByCPFResult
 {
-    public Domain.Entities.Person? Person { get; set; }
+    /// <summary>
+    /// Gets or sets the summary information for a person.
+    /// </summary>
+    public PersonSummaryDto? Person { get; set; }
 }

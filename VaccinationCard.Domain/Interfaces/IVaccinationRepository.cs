@@ -1,4 +1,5 @@
 ﻿using VaccinationCard.Domain.Entities;
+using VaccinationCard.Domain.Enum;
 
 namespace VaccinationCard.Domain.Interfaces;
 
@@ -40,5 +41,15 @@ public interface IVaccinationRepository
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<bool> DeleteVaccinationAsync(Guid vaccinationId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Gets a value indicating whether a vaccination record exists for the specified person, vaccine, and dose.
+    /// </summary>
+    /// <param name="personId"></param>
+    /// <param name="vaccineId"></param>
+    /// <param name="dose"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>If exists return true, else false</returns>
+    Task<bool> VaccinationExistsAsync(Guid personId,Guid vaccineId, Dose dose, CancellationToken cancellationToken = default);
 
 }

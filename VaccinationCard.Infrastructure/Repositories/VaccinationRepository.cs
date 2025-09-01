@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VaccinationCard.Domain.Entities;
+using VaccinationCard.Domain.Enum;
 using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Infrastructure.Context;
 
@@ -52,6 +53,7 @@ public class VaccinationRepository(ApplicationDbContext dbContext) : IVaccinatio
         return await _dbContext.Vaccinations
             .AsNoTracking()
             .Where(v => v.PersonId == personId)
+            .Include(v => v.Vaccine)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
@@ -66,5 +68,22 @@ public class VaccinationRepository(ApplicationDbContext dbContext) : IVaccinatio
         return await _dbContext.Vaccinations
             .AsNoTracking()
             .FirstOrDefaultAsync(v => v.Id == vaccinationId, cancellationToken);
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether a vaccination record exists for the specified person, vaccine, and dose.
+    /// </summary>
+    /// <param name="personId"></param>
+    /// <param name="vaccineId"></param>
+    /// <param name="dose"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>If exists return true, else false</returns>
+    public async Task<bool> VaccinationExistsAsync(Guid personId, Guid vaccineId, Dose dose, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Vaccinations
+            .AsNoTracking()
+            .AnyAsync(v => v.PersonId == personId && 
+                            v.VaccineId == vaccineId && 
+                            v.Dose == dose, cancellationToken);
     }
 }

@@ -54,25 +54,28 @@ app.UseSwagger();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler(errorApp =>
-    {
-        errorApp.Run(async context =>
-        {
-            context.Response.StatusCode = 500;
-            context.Response.ContentType = "application/json";
 
-            var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
-            var exception = errorFeature?.Error;
 
-            var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-            logger.LogError(exception, "Unhandled exception");
+    app.UseGlobalExceptionHandler();
+    //app.UseExceptionHandler(errorApp =>
+    //{
+    //    errorApp.Run(async context =>
+    //    {
+    //        context.Response.StatusCode = 500;
+    //        context.Response.ContentType = "application/json";
 
-            await context.Response.WriteAsJsonAsync(new
-            {
-                error = "Ocorreu um erro interno. Tente novamente mais tarde."
-            });
-        });
-    });
+    //        var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
+    //        var exception = errorFeature?.Error;
+
+    //        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+    //        logger.LogError(exception, "Unhandled exception");
+
+    //        await context.Response.WriteAsJsonAsync(new
+    //        {
+    //            error = "Ocorreu um erro interno. Tente novamente mais tarde."
+    //        });
+    //    });
+    //});
     app.UseHsts();
 }
 

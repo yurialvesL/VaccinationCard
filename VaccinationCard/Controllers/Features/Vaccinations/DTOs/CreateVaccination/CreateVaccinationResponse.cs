@@ -1,4 +1,5 @@
-﻿using VaccinationCard.Domain.Enum;
+﻿using VaccinationCard.Application.Common.DTOs;
+using VaccinationCard.Domain.Enum;
 
 namespace VaccinationCard.Controllers.Features.Vaccinations.DTOs.CreateVaccination;
 
@@ -8,19 +9,24 @@ namespace VaccinationCard.Controllers.Features.Vaccinations.DTOs.CreateVaccinati
 public record CreateVaccinationResponse
 {
     /// <summary>
+    /// Vaccination unique identifier   
+    /// </summary>
+    public Guid VaccinationId { get; set; }
+
+    /// <summary>
     /// Person unique identifier 
     /// </summary>
     public Guid PersonId { get; set; }
 
     /// <summary>
-    /// Vaccine unique identifier
+    /// Vaccine aplied summary
     /// </summary>
-    public Guid VaccineId { get; set; }
+    public required VaccineSummaryDto Vaccine { get; set; }
 
     /// <summary>
     /// Doses aplicated
     /// </summary>
-    public Dose Doses { get; set; }
+    public Dose DoseAplied { get; set; }
 
     /// <summary>
     /// Date of application

@@ -34,3 +34,8 @@ public sealed class ConflictException : Exception
 {
     public ConflictException(string message = "Conflict while processing the request") : base(message) { }
 }
+
+public sealed class NotFoundException : Exception
+{
+    public NotFoundException(string message) : base(message) { }
+}

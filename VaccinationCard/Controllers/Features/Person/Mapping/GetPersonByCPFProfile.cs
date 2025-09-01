@@ -16,10 +16,10 @@ public class GetPersonByCPFProfile : Profile
             .ForMember(dest => dest.CPF, opt => opt.MapFrom(src => src.CPF));
 
         CreateMap<GetPersonByCPFResult,GetPersonByCPFResponse>()
-            .ForMember(dest => dest.PersonId,opt => opt.MapFrom(src => src.Person.Id))
+            .ForMember(dest => dest.PersonId,opt => opt.MapFrom(src => src.Person.PersonId))
             .ForMember(dest => dest.CPF, opt => opt.MapFrom(src => src.Person.CPF))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Person.Name))
-            .ForMember(dest => dest.Sex, opt => opt.MapFrom(src => src.Person.Sex.GetDescription()))
+            .ForMember(dest => dest.Sex, opt => opt.MapFrom(src => src.Person.Sex))
             .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.Person.DateOfBirth))
             .ForMember(dest => dest.IsAdmin, opt => opt.MapFrom(src => src.Person.IsAdmin))
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.Person.CreatedAt))

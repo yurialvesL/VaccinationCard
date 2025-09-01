@@ -86,6 +86,18 @@ public sealed class GlobalExceptionMiddleware
                 };
                 break;
 
+            case NotFoundException nfx:
+                statusCode = StatusCodes.Status404NotFound;
+                problem = new ProblemDetails
+                {
+                    Title = "Not Found",
+                    Detail = nfx.Message,
+                    Status = statusCode,
+                    Instance = ctx.Request.Path,
+                    Type = "about:blank"
+                };
+                break;
+
             case ConflictException cex:
                 statusCode = StatusCodes.Status409Conflict;
                 problem = new ProblemDetails
