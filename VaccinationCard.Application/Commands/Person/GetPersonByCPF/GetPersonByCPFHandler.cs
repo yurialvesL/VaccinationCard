@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using VaccinationCard.Application.Common.DTOs;
+using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Person.GetPersonByCPF;
@@ -25,11 +26,8 @@ public class GetPersonByCPFHandler : IRequestHandler<GetPersonByCPFCommand,GetPe
     {
         var person = await _personRepository.GetPersonByCPFAsync(request.CPF, cancellationToken);
 
-        if(person == null)
-        {
-            _logger.LogWarning($"Person with CPF {request.CPF} not found.");
-            return new GetPersonByCPFResult() { Person = null };
-        }
+        if (person == null)
+            throw new NotFoundException($"Person with CPF {request.CPF} not found.");    
 
         var personResult = _mapper.Map<PersonSummaryDto>(person);
 
