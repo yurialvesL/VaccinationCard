@@ -12,5 +12,5 @@ public class GetVaccinationByPersonIdResult
     /// <summary>
     /// Vaccination records associated with the person.
     /// </summary>
-    public List<VaccinationSummaryDto>? Vaccinations { get; set; } = new List<VaccinationSummaryDto>();
+    public List<VaccinationSummaryDto>? Vaccinations { get; set; } = null;
 }
