@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.Application.Common.DTOs;
+using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Person.UpdatePerson;
@@ -22,18 +24,12 @@ public class UpdatePersonHandler : IRequestHandler<UpdatePersonCommand,UpdatePer
     {
         var person = await _personRepository.GetPersonByCPFAsync(request.CPF, cancellationToken);
         
-        if (person == null)
-        {
-            _logger.LogWarning($"Person with cpf: {request.CPF} not found");
-            return _mapper.Map<UpdatePersonResult>(new UpdatePersonResult
-            {
-              UpdateSuccess = false,
-            });
-        }
+        if(person == null)
+            throw new NotFoundException($"Person with cpf: {request.CPF} not found");
 
-        var personToUpdate = _mapper.Map(request, person);
+        person.IsAdmin = true;
 
-        await _personRepository.UpdatePersonAsync(personToUpdate, cancellationToken);
+        await _personRepository.UpdatePersonAsync(person, cancellationToken);
 
         return _mapper.Map<UpdatePersonResult>(new UpdatePersonResult
         {
