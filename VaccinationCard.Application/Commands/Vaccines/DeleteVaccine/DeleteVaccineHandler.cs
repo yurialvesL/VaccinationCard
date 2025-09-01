@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Vaccines.DeleteVaccine;
@@ -23,15 +24,8 @@ public class DeleteVaccineHandler : IRequestHandler<DeleteVaccineCommand,DeleteV
         var exists = await _vaccineRepository.GetVaccineByIdAsync(request.Id, cancellationToken);
 
         if (exists == null)
-        {
-            _logger.LogWarning($"Vaccine with ID {request.Id} not found.");
-
-            return new DeleteVaccineResult
-            {
-                IsDeleted = null
-            };
-        }
-
+            throw new NotFoundException($"Vaccine with ID {request.Id} not found.");
+        
         var isDeleted = await _vaccineRepository.DeleteVaccineAsync(request.Id, cancellationToken);
 
         if (!isDeleted)

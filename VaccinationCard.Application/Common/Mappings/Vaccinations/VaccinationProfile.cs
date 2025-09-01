@@ -34,6 +34,5 @@ public class VaccinationProfile : Profile
 
         CreateMap<IEnumerable<VaccinationSummaryDto>, GetVaccinationByPersonIdResult>()
             .ForMember(d => d.Vaccinations, opt => opt.MapFrom(src => src));
-
     }
 }

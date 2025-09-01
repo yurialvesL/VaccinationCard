@@ -54,6 +54,7 @@ public class VaccinationRepository(ApplicationDbContext dbContext) : IVaccinatio
             .AsNoTracking()
             .Where(v => v.PersonId == personId)
             .Include(v => v.Vaccine)
+            .Include(v => v.Person)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 

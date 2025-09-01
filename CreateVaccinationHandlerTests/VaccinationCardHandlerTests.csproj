@@ -22,8 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\Auth\" />
-    <Folder Include="Commands\Vaccine\" />
-    <Folder Include="Commands\Person\" />
+    <Folder Include="Commands\Persons\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -26,7 +26,7 @@ public class GetVaccinationByPersonIdHandler : IRequestHandler<GetVaccinationByP
 
     public async Task<GetVaccinationByPersonIdResult> Handle(GetVaccinationByPersonIdCommand request, CancellationToken cancellationToken)
     {
-        var person = _personRepository.GetPersonByIdAsync(request.PersonId, cancellationToken);
+        var person = await _personRepository.GetPersonByIdAsync(request.PersonId, cancellationToken);
 
         if(person is null)
             throw new NotFoundException($"Person with id:{request.PersonId} not found");
