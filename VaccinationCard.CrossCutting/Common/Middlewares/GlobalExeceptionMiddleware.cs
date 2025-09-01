@@ -110,6 +110,18 @@ public sealed class GlobalExceptionMiddleware
                 };
                 break;
 
+            case UnprocessableContentException ucex:
+                statusCode = StatusCodes.Status422UnprocessableEntity;
+                problem = new ProblemDetails
+                {
+                    Title = "Unprocessable Content",
+                    Detail = ucex.Message,
+                    Status = statusCode,
+                    Instance = ctx.Request.Path,
+                    Type = "about:blank"
+                };
+                break;
+
             default:
                 statusCode = StatusCodes.Status500InternalServerError;
                 problem = new ProblemDetails

@@ -52,4 +52,13 @@ public interface IVaccinationRepository
     /// <returns>If exists return true, else false</returns>
     Task<bool> VaccinationExistsAsync(Guid personId,Guid vaccineId, Dose dose, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Gets a value indicating whether all previous doses exist for the specified person, vaccine, and dose.
+    /// </summary>
+    /// <param name="personId">Unique identifier of person</param>
+    /// <param name="vaccineId">Unique identifier of vaccine</param>
+    /// <param name="dose">dose</param>
+    /// <param name="cancellationToken">Cancellation Token</param>
+    /// <returns>True if has all previous doses, else False</returns>
+    Task<bool> HasAllPreviousDosesAsync(Guid personId, Guid vaccineId, Dose dose, CancellationToken cancellationToken = default);
 }

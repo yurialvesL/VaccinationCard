@@ -39,3 +39,8 @@ public sealed class NotFoundException : Exception
 {
     public NotFoundException(string message) : base(message) { }
 }
+
+public sealed class UnprocessableContentException : Exception
+{
+    public UnprocessableContentException(string message) : base(message) { }
+}

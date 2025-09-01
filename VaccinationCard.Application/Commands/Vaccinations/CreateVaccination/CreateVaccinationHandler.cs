@@ -31,7 +31,6 @@ public class CreateVaccinationHandler : IRequestHandler<CreateVaccinationCommand
         if(personExists is null)
             throw new NotFoundException($"Person with id:{request.PersonId} not found");
 
-
         var vaccineExists = await _vaccineRepository.GetVaccineByIdAsync(request.VaccineId, cancellationToken);
         
         if(vaccineExists is null)
@@ -41,6 +40,11 @@ public class CreateVaccinationHandler : IRequestHandler<CreateVaccinationCommand
 
         if (vaccinationExists)
             throw new ConflictException("This dose is already registered for this person and vaccine");
+
+        var hasAllPreviousDoses = await _vaccinationRepository.HasAllPreviousDosesAsync(request.PersonId, request.VaccineId, request.Dose, cancellationToken);
+        
+        if (hasAllPreviousDoses == false)
+            throw new UnprocessableContentException("The person does not have all previous doses for this vaccine");
 
         var vaccination = _mapper.Map<Domain.Entities.Vaccination>(request);
 

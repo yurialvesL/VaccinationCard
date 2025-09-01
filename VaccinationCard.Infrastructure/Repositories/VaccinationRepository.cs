@@ -71,6 +71,34 @@ public class VaccinationRepository(ApplicationDbContext dbContext) : IVaccinatio
     }
 
     /// <summary>
+    /// Verifies if all previous doses exist for a given person and vaccine.
+    /// </summary>
+    /// <param name="personId">Unique identifier of person</param>
+    /// <param name="vaccineId">Unique identifier of vaccine</param>
+    /// <param name="dose">Dose to check</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Return true if  Has all previous doses, else false</returns>
+    public async Task<bool> HasAllPreviousDosesAsync(Guid personId, Guid vaccineId, Dose dose, CancellationToken cancellationToken = default)
+    {
+        var desiredDoseNumber = (int)dose;
+        if (desiredDoseNumber <= 1)
+            return false;
+
+        var prevDose = (Dose)(desiredDoseNumber - 1);
+
+        var previousCount = await _dbContext.Vaccinations
+         .AsNoTracking()
+         .Where(v => v.PersonId == personId
+                  && v.VaccineId == vaccineId
+                  && (int)v.Dose < desiredDoseNumber)          
+         .Select(v => v.Dose)
+         .Distinct()                              
+         .CountAsync(cancellationToken);
+
+        return previousCount == (desiredDoseNumber - 1);
+    }
+
+    /// <summary>
     /// Gets a value indicating whether a vaccination record exists for the specified person, vaccine, and dose.
     /// </summary>
     /// <param name="personId"></param>
