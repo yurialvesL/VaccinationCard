@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Interfaces;
 
 namespace VaccinationCard.Application.Commands.Person.DeletePerson;
@@ -22,14 +23,7 @@ public class DeletePersonHandler : IRequestHandler<DeletePersonCommand,DeletePer
         var person = await _personRepository.GetPersonByIdAsync(request.PersonId, cancellationToken);
 
         if (person == null)
-        {
-            _logger.LogWarning($"Person with ID {request.PersonId} not found.");
-
-            return new DeletePersonResult
-            {
-                IsDelete = null
-            };
-        }
+            throw new NotFoundException($"Person with ID {request.PersonId} not found.");
 
         var success = await _personRepository.DeletePersonAsync(request.PersonId, cancellationToken);
 

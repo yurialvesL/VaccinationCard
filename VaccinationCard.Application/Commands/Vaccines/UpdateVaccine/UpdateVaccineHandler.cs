@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Interfaces;
 
@@ -24,21 +25,15 @@ public class UpdateVaccineHandler : IRequestHandler<UpdateVaccineCommand,UpdateV
         var exists = await _vaccineRepository.GetVaccineByIdAsync(request.Id, cancellationToken);
 
         if (exists is null)
-        {
-            _logger.LogWarning($"Vaccine with the id:{request.Id} not found");
-            return new UpdateVaccineResult
-            {
-                UpdateSuccess = false
-            };
-        }
-
+           throw new NotFoundException($"Vaccine with the id:{request.Id} not found");
+        
         var vaccine = _mapper.Map<Vaccine>(request);
 
         vaccine.UpdateAt = DateTime.UtcNow;
 
         var updated = await _vaccineRepository.UpdateVaccineAsync(vaccine, cancellationToken);
 
-        if (updated is null)
+        if(updated is null)
         {
             _logger.LogWarning($"Vaccine with the id:{request.Id} could not be updated");
             return new UpdateVaccineResult

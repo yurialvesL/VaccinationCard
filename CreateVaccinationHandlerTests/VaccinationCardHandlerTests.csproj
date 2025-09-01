@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\Auth\" />
-    <Folder Include="Commands\Persons\" />
   </ItemGroup>
 
   <ItemGroup>
