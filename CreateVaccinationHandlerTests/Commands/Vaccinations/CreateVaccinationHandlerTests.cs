@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Logging;
 using Moq;
 using VaccinationCard.Application.Commands.Vaccinations.CreateVaccination;
-using VaccinationCard.Application.Common.DTOs;
 using VaccinationCard.Application.Common.Mappings.Vaccinations;
 using VaccinationCard.Application.Common.Mappings.Vaccine;
-using VaccinationCard.Controllers.Features.Vaccinations.DTOs.CreateVaccination;
 using VaccinationCard.CrossCutting.Common.Exceptions;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Enum;
