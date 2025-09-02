@@ -83,7 +83,7 @@ public class VaccinationRepository(ApplicationDbContext dbContext) : IVaccinatio
     {
         var desiredDoseNumber = (int)dose;
         if (desiredDoseNumber <= 1)
-            return false;
+            return true;
 
         var prevDose = (Dose)(desiredDoseNumber - 1);
 
