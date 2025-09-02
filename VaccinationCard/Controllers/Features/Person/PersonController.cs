@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationCard.Application.Commands.Person.CreatePerson;
 using VaccinationCard.Application.Commands.Person.DeletePerson;
@@ -31,6 +32,7 @@ public class PersonController : ControllerBase
     
 
     [HttpPost("CreatePerson")]
+    [EnableRateLimiting("fixed-1m")]
     [SwaggerOperation(Summary = "Creates a new person", Description = "Creates a new person in the system")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

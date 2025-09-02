@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VaccinationCard.CrossCutting.Common.Extensions;
 using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Infrastructure.Context;
 using VaccinationCard.Infrastructure.Repositories;
@@ -16,8 +17,11 @@ public static class DependencyInjection
         if (string.IsNullOrEmpty(connectionString))
             throw new ArgumentException("Connection string 'DefaultConnection' is not configured.");
 
+
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(connectionString));
+
+        services.AddRateLimitingPolicies(configuration);
 
         //Repositories
         services.AddScoped<IPersonRepository, PersonRepository>();

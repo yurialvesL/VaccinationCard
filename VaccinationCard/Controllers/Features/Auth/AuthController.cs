@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationCard.Application.Commands.Auth;
 using VaccinationCard.Controllers.Features.Auth.DTOs;
@@ -8,7 +9,9 @@ using VaccinationCard.Controllers.Features.Auth.Validator;
 
 namespace VaccinationCard.Controllers.Features.Auth;
 
+
 [ApiController]
+[EnableRateLimiting("fixed-1m")]
 [Route("api/[controller]")]
 [Produces("application/json")]
 [ApiConventionType(typeof(DefaultApiConventions))]
